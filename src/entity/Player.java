@@ -45,44 +45,49 @@ public class Player extends Entity {
     }
 
     public void update(){
-        if(keyHandler.up){
-            direction="up";
-            y-=speed;
-        }
-        if(keyHandler.down){
-            direction="down";
-            y+=speed;
-        }
-        if(keyHandler.left){
-            direction="left";
-            x-=speed;
-        }
-        if(keyHandler.right){
-            direction="right";
-            x+=speed;
+        if(keyHandler.up==true||keyHandler.down==true||keyHandler.left==true||keyHandler.right==true){
+
+            if(keyHandler.up){
+                direction="up";
+                y-=speed;
+            }
+            if(keyHandler.down){
+                direction="down";
+                y+=speed;
+            }
+            if(keyHandler.left){
+                direction="left";
+                x-=speed;
+            }
+            if(keyHandler.right){
+                direction="right";
+                x+=speed;
+            }
+            spriteCounter++;
+            if(spriteCounter>10) {
+                spriteNum *= -1;
+                spriteCounter = 0;
+            }
         }
     }
     public void draw(Graphics2D g2){
-//        g2.setColor(Color.WHITE);
-//        g2.fillRect(x,y, gp.tileSize, gp.tileSize);
 
         BufferedImage image=null;
 
         switch(direction){
             case "up":
-                image=up1;
+                image=(spriteNum==1)?up1:up2;
                 break;
             case "down":
-                image=down1;
+                image=(spriteNum==1)?down1:down2;
                 break;
             case "left":
-                image=left1;
+                image=(spriteNum==1)?left1:left2;
                 break;
             case "right":
-                image=right1;
+                image=(spriteNum==1)?right1:right2;
                 break;
         }
         g2.drawImage(image,x,y,gp.tileSize,gp.tileSize,null);
     }
-
 }
