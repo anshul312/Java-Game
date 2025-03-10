@@ -17,7 +17,7 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp=gp;
         tile=new Tile[10];
-        mapTileNum=new int[gp.screenCol][gp.screenRow];
+        mapTileNum=new int[gp.worldCol][gp.worldRow];
         getTileImage();
         loadMap();
     }
@@ -33,6 +33,15 @@ public class TileManager {
             tile[2]= new Tile();
             tile[2].image= ImageIO.read(getClass().getResource("/Tiles/water.png"));
 
+            tile[3]= new Tile();
+            tile[3].image= ImageIO.read(getClass().getResource("/Tiles/earth.png"));
+
+            tile[4]= new Tile();
+            tile[4].image= ImageIO.read(getClass().getResource("/Tiles/tree.png"));
+
+            tile[5]= new Tile();
+            tile[5].image= ImageIO.read(getClass().getResource("/Tiles/sand.png"));
+
 
         }catch(IOException e){
             e.printStackTrace();
@@ -41,22 +50,22 @@ public class TileManager {
 
     public void loadMap(){
         try{
-            InputStream is=getClass().getResourceAsStream("/map/map01.txt");
+            InputStream is=getClass().getResourceAsStream("/map/world01.txt");
             BufferedReader br=new BufferedReader(new InputStreamReader(is));
 
             int col=0;
             int row=0;
-            while(col<gp.screenCol && row<gp.screenRow){
+            while(col<gp.worldCol && row<gp.worldRow){
                 String line=br.readLine();
 
-                while(col<gp.screenCol){
+                while(col<gp.worldCol){
                     String numbers[]=line.split(" ");
 
                     int number=Integer.parseInt(numbers[col]);
                     mapTileNum[col][row]=number;
                     col++;
                 }
-                if(col==gp.screenCol){
+                if(col==gp.worldCol){
                     col=0;
                     row++;
                 }
@@ -67,23 +76,26 @@ public class TileManager {
         }
     }
     public void draw(Graphics2D g2){
-        int col=0;
-        int row=0;
+        int worldCol=0;
+        int worldRow=0;
         int x=0;
         int y=0;
 
-        while(col<gp.screenCol && row<gp.screenRow){
-            int tileNum=mapTileNum[col][row];
+        while(worldCol<gp.worldCol && worldRow<gp.worldRow){
+            int tileNum=mapTileNum[worldCol][worldRow];
 
-            g2.drawImage(tile[tileNum].image,x,y,gp.tileSize,gp.tileSize,null);
-            col++;
-            x+=gp.tileSize;
+            int worldX=worldCol*gp.tileSize;
+            int worldY=worldRow*gp.tileSize;
+            int screenX=(int)(worldX-gp.player.worldX+gp.player.screenX);
+            int screenY=(int)(worldY-gp.player.worldY+gp.player.screenY);
 
-            if(col==gp.screenCol){
-                col=0;
-                x=0;
-                row++;
-                y+=gp.tileSize;
+            g2.drawImage(tile[tileNum].image,screenX,screenY,gp.tileSize,gp.tileSize,null);
+            worldCol++;
+
+
+            if(worldCol==gp.worldCol){
+                worldCol=0;
+                worldRow++;
             }
         }
 
