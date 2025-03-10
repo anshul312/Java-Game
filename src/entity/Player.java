@@ -6,7 +6,6 @@ import main.KeyHandler;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class Player extends Entity {
@@ -45,23 +44,33 @@ public class Player extends Entity {
     }
 
     public void update(){
-        if(keyHandler.up==true||keyHandler.down==true||keyHandler.left==true||keyHandler.right==true){
+
+        int dx=0,dy=0;
+        if(keyHandler.up ||keyHandler.down ||keyHandler.left ||keyHandler.right ){
 
             if(keyHandler.up){
                 direction="up";
-                y-=speed;
+                dy-=1;
             }
             if(keyHandler.down){
                 direction="down";
-                y+=speed;
+                dy+=1;
             }
             if(keyHandler.left){
                 direction="left";
-                x-=speed;
+                dx-=1;
             }
             if(keyHandler.right){
                 direction="right";
-                x+=speed;
+                dx+=1;
+            }
+            if(dx!=0 && dy!=0){
+                double normFactor = Math.sqrt(2) / 2; // so that velocity along the diagonal direction is same as vertical(or horizontal)
+                x += dx * speed * normFactor;
+                y += dy * speed * normFactor;
+            } else {
+                x += dx * speed;
+                y += dy * speed;
             }
             spriteCounter++;
             if(spriteCounter>10) {
@@ -88,6 +97,6 @@ public class Player extends Entity {
                 image=(spriteNum==1)?right1:right2;
                 break;
         }
-        g2.drawImage(image,x,y,gp.tileSize,gp.tileSize,null);
+        g2.drawImage(image,(int)x,(int)y,gp.tileSize,gp.tileSize,null);
     }
 }
