@@ -1,6 +1,7 @@
 package entity;
 
 import main.GamePanel;
+
 import main.KeyHandler;
 
 import javax.imageio.ImageIO;
@@ -12,6 +13,9 @@ public class Player extends Entity {
 
     GamePanel gp;
     KeyHandler keyHandler;
+    
+    public final int screenX;
+    public final int screenY;
 
     public final int screenX;
     public final int screenY;
@@ -24,13 +28,13 @@ public class Player extends Entity {
         screenY=gp.screenHeight/2;
 
         collisionArea=new Rectangle(8,16,32,32);
+
         setDefaultValues();
         getPlayerImage();
     }
     public void setDefaultValues(){
-        worldX=gp.tileSize*23-gp.tileSize/2;
-        worldY=gp.tileSize*21-gp.tileSize/2;
-        speed=5;
+
+
         direction="up";
     }
 
@@ -116,6 +120,18 @@ public class Player extends Entity {
                 image=(spriteNum==1)?right1:right2;
                 break;
         }
+
         g2.drawImage(image,(int)screenX,(int)screenY,gp.tileSize,gp.tileSize,null);
+
     }
 }
+
+
+
+
+
+
+
+
+
+
