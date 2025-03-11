@@ -22,6 +22,8 @@ public class Player extends Entity {
 
         screenX=gp.screenWidth/2;
         screenY=gp.screenHeight/2;
+
+        collisionArea=new Rectangle(8,16,32,32);
         setDefaultValues();
         getPlayerImage();
     }
@@ -52,23 +54,33 @@ public class Player extends Entity {
     public void update(){
 
         int dx=0,dy=0;
-        if(keyHandler.up ||keyHandler.down ||keyHandler.left ||keyHandler.right ){
+
+        collisionOn=false;
+        gp.checker.checkTile(this);
+
+        if(keyHandler.up ||keyHandler.down ||keyHandler.left ||keyHandler.right  ){
 
             if(keyHandler.up){
                 direction="up";
-                dy-=1;
             }
             if(keyHandler.down){
                 direction="down";
-                dy+=1;
             }
             if(keyHandler.left){
                 direction="left";
-                dx-=1;
             }
             if(keyHandler.right){
                 direction="right";
-                dx+=1;
+            }
+
+            //Check for collision
+            if(collisionOn==false){
+                switch(direction){
+                    case "up": dy-=1; break;
+                    case "down": dy+=1; break;
+                    case "left": dx-=1; break;
+                    case "right": dx+=1; break;
+                }
             }
             if(dx!=0 && dy!=0){
                 double normFactor = Math.sqrt(2) / 2; // so that velocity along the diagonal direction is same as vertical(or horizontal)
@@ -78,6 +90,7 @@ public class Player extends Entity {
                 worldX += dx * speed;
                 worldY += dy * speed;
             }
+
             spriteCounter++;
             if(spriteCounter>10) {
                 spriteNum *= -1;
