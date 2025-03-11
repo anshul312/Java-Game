@@ -76,21 +76,12 @@ public class Player extends Entity {
             //Check for collision
             if(collisionOn==false){
                 switch(direction){
-                    case "up": dy-=1; break;
-                    case "down": dy+=1; break;
-                    case "left": dx-=1; break;
-                    case "right": dx+=1; break;
+                    case "up": worldY-=speed; break;
+                    case "down": worldY+=speed; break;
+                    case "left": worldX-=speed; break;
+                    case "right": worldX+=speed; break;
                 }
             }
-            if(dx!=0 && dy!=0){
-                double normFactor = Math.sqrt(2) / 2; // so that velocity along the diagonal direction is same as vertical(or horizontal)
-                worldX += dx * speed * normFactor;
-                worldY += dy * speed * normFactor;
-            } else {
-                worldX += dx * speed;
-                worldY += dy * speed;
-            }
-
             spriteCounter++;
             if(spriteCounter>10) {
                 spriteNum *= -1;
@@ -116,6 +107,6 @@ public class Player extends Entity {
                 image=(spriteNum==1)?right1:right2;
                 break;
         }
-        g2.drawImage(image,(int)screenX,(int)screenY,gp.tileSize,gp.tileSize,null);
+        g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);
     }
 }

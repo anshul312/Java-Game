@@ -101,6 +101,5 @@ public class TileManager {
                 worldRow++;
             }
         }
-
     }
 }

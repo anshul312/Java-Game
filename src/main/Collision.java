@@ -12,10 +12,10 @@ public class Collision {
 
     public void checkTile(Entity entity){
 
-        int entityLeftWorldX= (int)entity.worldX+entity.collisionArea.x;
-        int entityTopWorldY= (int)entity.worldY+entity.collisionArea.y;
-        int entityRightWorldX= (int)entity.worldX+entity.collisionArea.x+entity.collisionArea.width;
-        int entityBottomWorldY= (int)entity.worldY+entity.collisionArea.y+entity.collisionArea.height;
+        int entityLeftWorldX= entity.worldX+entity.collisionArea.x;
+        int entityTopWorldY= entity.worldY+entity.collisionArea.y;
+        int entityRightWorldX= entity.worldX+entity.collisionArea.x+entity.collisionArea.width;
+        int entityBottomWorldY= entity.worldY+entity.collisionArea.y+entity.collisionArea.height;
 
         int entityLeftCol=entityLeftWorldX/gp.tileSize;
         int entityTopRow=entityTopWorldY/gp.tileSize;
@@ -62,7 +62,5 @@ public class Collision {
                 }
                 break;
         }
-
-
     }
 }
