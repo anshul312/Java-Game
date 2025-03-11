@@ -1,6 +1,7 @@
 package entity;
 
 import main.GamePanel;
+
 import main.KeyHandler;
 
 import javax.imageio.ImageIO;
@@ -13,17 +14,31 @@ public class Player extends Entity {
 
     GamePanel gp;
     KeyHandler keyHandler;
+    
+    public final int screenX;
+    public final int screenY;
 
     public Player(GamePanel gp,KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
+        
+        screenX = gp.screenWidth/2-(gp.tileSize/2);
+        screenY = gp.screenHeight/2-(gp.tileSize/2);
+        
+        solidArea = new Rectangle();
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidArea.width = 32;
+        solidArea.height = 32;
+        
         setDefaultValues();
         getPlayerImage();
     }
     public void setDefaultValues(){
-        x=100;
-        y=100;
-        speed=5;
+    	//Players position on the world map
+        worldX=gp.tileSize * 23;
+        worldY=gp.tileSize * 21;
+        speed=3;
         direction="up";
     }
 
@@ -49,20 +64,41 @@ public class Player extends Entity {
 
             if(keyHandler.up){
                 direction="up";
-                y-=speed;
+                
             }
             if(keyHandler.down){
                 direction="down";
-                y+=speed;
+                
             }
             if(keyHandler.left){
                 direction="left";
-                x-=speed;
+               
             }
             if(keyHandler.right){
                 direction="right";
-                x+=speed;
+                
             }
+            
+            //COLLISION CHECK
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+            
+            if(collisionOn == false) {
+            	
+            	switch(direction) {
+            	case "up":worldY-=speed;
+            		break;
+            	case "down":worldY+=speed;
+            		break;
+            	case "left":worldX-=speed;
+            		break;
+            	case "right":worldX+=speed;
+            		break;
+       
+            	}
+            }
+            	
+            
             spriteCounter++;
             if(spriteCounter>10) {
                 spriteNum *= -1;
@@ -88,6 +124,17 @@ public class Player extends Entity {
                 image=(spriteNum==1)?right1:right2;
                 break;
         }
-        g2.drawImage(image,x,y,gp.tileSize,gp.tileSize,null);
+        g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);
+        
     }
 }
+
+
+
+
+
+
+
+
+
+
