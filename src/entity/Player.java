@@ -7,7 +7,6 @@ import main.KeyHandler;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class Player extends Entity {
@@ -18,27 +17,24 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
 
+    public final int screenX;
+    public final int screenY;
+
     public Player(GamePanel gp,KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
-        
-        screenX = gp.screenWidth/2-(gp.tileSize/2);
-        screenY = gp.screenHeight/2-(gp.tileSize/2);
-        
-        solidArea = new Rectangle();
-        solidArea.x = 8;
-        solidArea.y = 16;
-        solidArea.width = 32;
-        solidArea.height = 32;
-        
+
+        screenX=gp.screenWidth/2;
+        screenY=gp.screenHeight/2;
+
+        collisionArea=new Rectangle(8,16,32,32);
+
         setDefaultValues();
         getPlayerImage();
     }
     public void setDefaultValues(){
-    	//Players position on the world map
-        worldX=gp.tileSize * 23;
-        worldY=gp.tileSize * 21;
-        speed=3;
+
+
         direction="up";
     }
 
@@ -60,45 +56,45 @@ public class Player extends Entity {
     }
 
     public void update(){
-        if(keyHandler.up==true||keyHandler.down==true||keyHandler.left==true||keyHandler.right==true){
+
+        int dx=0,dy=0;
+
+        collisionOn=false;
+        gp.checker.checkTile(this);
+
+        if(keyHandler.up ||keyHandler.down ||keyHandler.left ||keyHandler.right  ){
 
             if(keyHandler.up){
                 direction="up";
-                
             }
             if(keyHandler.down){
                 direction="down";
-                
             }
             if(keyHandler.left){
                 direction="left";
-               
             }
             if(keyHandler.right){
                 direction="right";
-                
             }
-            
-            //COLLISION CHECK
-            collisionOn = false;
-            gp.cChecker.checkTile(this);
-            
-            if(collisionOn == false) {
-            	
-            	switch(direction) {
-            	case "up":worldY-=speed;
-            		break;
-            	case "down":worldY+=speed;
-            		break;
-            	case "left":worldX-=speed;
-            		break;
-            	case "right":worldX+=speed;
-            		break;
-       
-            	}
+
+            //Check for collision
+            if(collisionOn==false){
+                switch(direction){
+                    case "up": dy-=1; break;
+                    case "down": dy+=1; break;
+                    case "left": dx-=1; break;
+                    case "right": dx+=1; break;
+                }
             }
-            	
-            
+            if(dx!=0 && dy!=0){
+                double normFactor = Math.sqrt(2) / 2; // so that velocity along the diagonal direction is same as vertical(or horizontal)
+                worldX += dx * speed * normFactor;
+                worldY += dy * speed * normFactor;
+            } else {
+                worldX += dx * speed;
+                worldY += dy * speed;
+            }
+
             spriteCounter++;
             if(spriteCounter>10) {
                 spriteNum *= -1;
@@ -124,8 +120,9 @@ public class Player extends Entity {
                 image=(spriteNum==1)?right1:right2;
                 break;
         }
-        g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);
-        
+
+        g2.drawImage(image,(int)screenX,(int)screenY,gp.tileSize,gp.tileSize,null);
+
     }
 }
 
