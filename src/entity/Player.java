@@ -15,6 +15,7 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
+    int hasKey=0;
 
     public Player(GamePanel gp,KeyHandler keyHandler) {
         this.gp = gp;
@@ -24,6 +25,8 @@ public class Player extends Entity {
         screenY=gp.screenHeight/2;
 
         collisionArea=new Rectangle(8,16,32,32);
+        collisionAreaDefaultX=collisionArea.x;
+        collisionAreaDefaultY=collisionArea.y;
         setDefaultValues();
         getPlayerImage();
     }
@@ -55,9 +58,6 @@ public class Player extends Entity {
 
         int dx=0,dy=0;
 
-        collisionOn=false;
-        gp.checker.checkTile(this);
-
         if(keyHandler.up ||keyHandler.down ||keyHandler.left ||keyHandler.right  ){
 
             if(keyHandler.up){
@@ -74,6 +74,14 @@ public class Player extends Entity {
             }
 
             //Check for collision
+            collisionOn=false;
+            gp.checker.checkTile(this);
+
+            //check object collision
+            int objIndex=gp.checker.checkObject(this,true);
+            pickUpObject(objIndex);
+
+            //if no collision then player can move
             if(collisionOn==false){
                 switch(direction){
                     case "up": worldY-=speed; break;
@@ -87,6 +95,27 @@ public class Player extends Entity {
                 spriteNum *= -1;
                 spriteCounter = 0;
             }
+        }
+    }
+    public void pickUpObject(int index){
+        if(index!=999){
+            String objectName=gp.obj[index].name;
+
+            switch(objectName){
+                case "Key":
+                    hasKey++;
+                    gp.obj[index]=null;
+                    System.out.println("Key"+hasKey);
+                    break;
+                case "Door":
+                    if(hasKey>0){
+                        gp.obj[index]=null;
+                        hasKey--;
+                    }
+                    System.out.println("Key"+hasKey);
+                    break;
+            }
+
         }
     }
     public void draw(Graphics2D g2){

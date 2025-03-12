@@ -1,6 +1,6 @@
 package object;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import main.GamePanel;
@@ -11,6 +11,10 @@ public class SuperObject {
     public String name;
     public boolean collision = false;
     public int worldX, worldY;
+    public Rectangle collisionArea=new Rectangle(0,0,48,48);
+    public int collisionAreaDefaultX=0;
+    public int collisionAreaDefaultY=0;
+
 
     public void draw(Graphics2D g2, GamePanel gp) {
 

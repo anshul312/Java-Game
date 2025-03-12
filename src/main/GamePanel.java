@@ -68,7 +68,6 @@ public class GamePanel extends JPanel implements Runnable {
 
             repaint();
 
-
             try {
                 double extraTime=nextDrawTime-System.nanoTime();
                 if(extraTime<0) extraTime=0;
