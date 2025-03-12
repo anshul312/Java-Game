@@ -23,12 +23,12 @@ public class GamePanel extends JPanel implements Runnable {
     //World Settings
     public final int worldCol=50;
     public final int worldRow=50;
-    public final int worldWidth=tileSize*worldCol;
-    public final int worldHeight=tileSize*worldRow;
 
     int FPS = 60;
     TileManager tileManager=new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
+    Sound sound = new Sound();
+
     Thread gameThread;
 
     public Collision checker=new Collision(this);
@@ -49,8 +49,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
 
         aSetter.setObject();
+        playMusic(0);
     }
-
 
     public void startGameThread(){
         gameThread=new Thread(this);// this is passed here because GamePanel implements runnable , so thread calls run()
@@ -99,5 +99,18 @@ public class GamePanel extends JPanel implements Runnable {
         }
         player.draw(g2);
         g2.dispose();
+    }
+
+    public void playMusic(int i){
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic(){
+        sound.stop();
+    }
+    public void playSE(int i){
+        sound.setFile(i);
+        sound.play();
     }
 }

@@ -129,7 +129,6 @@ public class Collision {
                 gp.obj[i].collisionArea.y = gp.obj[i].collisionAreaDefaultY;
             }
         }
-
         return index;
     }
 }

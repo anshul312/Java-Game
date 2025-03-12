@@ -14,5 +14,4 @@ public class OBJ_Chest extends SuperObject {
             e.printStackTrace();
         }
     }
-
 }
