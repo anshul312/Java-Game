@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import main.GamePanel;
+import main.Utility;
 
 public class SuperObject {
 
@@ -14,6 +15,7 @@ public class SuperObject {
     public Rectangle collisionArea=new Rectangle(0,0,48,48);
     public int collisionAreaDefaultX=0;
     public int collisionAreaDefaultY=0;
+    Utility uTool=new Utility();
 
 
     public void draw(Graphics2D g2, GamePanel gp) {

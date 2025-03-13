@@ -1,6 +1,7 @@
 package tile;
 
 import main.GamePanel;
+import main.Utility;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -24,7 +25,7 @@ public class TileManager {
 
     public void getTileImage(){
         try{
-            tile[0]= new Tile();
+            tile[0]=new Tile();
             tile[0].image= ImageIO.read(getClass().getResource("/Tiles/grass1.png"));
 
             tile[1]= new Tile();
@@ -61,8 +62,25 @@ public class TileManager {
             tile[12]= new Tile();
             tile[12].image= ImageIO.read(getClass().getResource("/Tiles/flower2.png"));
 
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
 
-        }catch(IOException e){
+
+
+    }
+    public void setup(int index,String imageName,boolean collision){
+        Utility uTool=new Utility();
+
+        try{
+            tile[index]=new Tile();
+            tile[index].image= ImageIO.read(getClass().getResource("/Tiles/"+imageName+".png"));
+            tile[index].image=uTool.scaleImage(tile[index].image,gp.tileSize, gp.tileSize);
+            tile[index].collision=collision;
+
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -108,9 +126,15 @@ public class TileManager {
             int screenX=worldX-gp.player.worldX+gp.player.screenX;
             int screenY=worldY-gp.player.worldY+gp.player.screenY;
 
-            g2.drawImage(tile[tileNum].image,screenX,screenY,gp.tileSize,gp.tileSize,null);
-            worldCol++;
+            //only draw tiles that are visible instead of drawing the whole world map.
+            if( worldX+gp.tileSize>gp.player.worldX-gp.player.screenX &&
+                worldX-gp.tileSize<gp.player.worldX+gp.player.screenX &&
+                worldY+gp.tileSize>gp.player.worldY-gp.player.screenY &&
+                worldY-gp.tileSize<gp.player.worldY+gp.player.screenY){
+                g2.drawImage(tile[tileNum].image,screenX,screenY,gp.tileSize, gp.tileSize, null);
+            }
 
+            worldCol++;
 
             if(worldCol==gp.worldCol){
                 worldCol=0;

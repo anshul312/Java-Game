@@ -27,12 +27,14 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
     TileManager tileManager=new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
-    Sound sound = new Sound();
 
+    Sound music = new Sound();
+    Sound se=new Sound();
     Thread gameThread;
 
     public Collision checker=new Collision(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
     public Player player=new Player(this,keyHandler);
 
     public SuperObject obj[] = new SuperObject[10];
@@ -90,6 +92,10 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
+        //debug
+        long drawStart=0;
+        drawStart=System.nanoTime();
+
         tileManager.draw(g2);
         for(int i=0;i< obj.length;i++)
         {
@@ -98,19 +104,29 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         player.draw(g2);
+
+        //UI
+        ui.draw(g2);
+
+        long drawEnd=System.nanoTime();
+        long deltaTime=drawEnd-drawStart;
+        g2.setColor(Color.BLACK);
+//        g2.drawString("Draw time"+deltaTime,10,400);
+//        System.out.println("Draw time"+deltaTime);
+
         g2.dispose();
     }
 
     public void playMusic(int i){
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
+        music.setFile(i);
+        music.play();
+        music.loop();
     }
     public void stopMusic(){
-        sound.stop();
+        music.stop();
     }
     public void playSE(int i){
-        sound.setFile(i);
-        sound.play();
+        se.setFile(i);
+        se.play();
     }
 }
