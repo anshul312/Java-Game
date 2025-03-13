@@ -24,50 +24,19 @@ public class TileManager {
     }
 
     public void getTileImage(){
-        try{
-            tile[0]=new Tile();
-            tile[0].image= ImageIO.read(getClass().getResource("/Tiles/grass1.png"));
-
-            tile[1]= new Tile();
-            tile[1].image= ImageIO.read(getClass().getResource("/Tiles/wall.png"));
-            tile[1].collision=true;
-
-            tile[2]= new Tile();
-            tile[2].image= ImageIO.read(getClass().getResource("/Tiles/water.png"));
-            tile[2].collision=true;
-
-            tile[3]= new Tile();
-            tile[3].image= ImageIO.read(getClass().getResource("/Tiles/earth.png"));
-
-            tile[4]= new Tile();
-            tile[4].image= ImageIO.read(getClass().getResource("/Tiles/tree.png"));
-            tile[4].collision=true;
-            tile[7]= new Tile();
-            tile[7].image= ImageIO.read(getClass().getResource("/Tiles/cut_tree.png"));
-            tile[7].collision=true;
-
-            tile[5]= new Tile();
-            tile[5].image= ImageIO.read(getClass().getResource("/Tiles/sand.png"));
-
-            tile[6]= new Tile();
-            tile[6].image= ImageIO.read(getClass().getResource("/Tiles/grass2.png"));
-            tile[8]= new Tile();
-            tile[8].image= ImageIO.read(getClass().getResource("/Tiles/grass3.png"));
-            tile[9]= new Tile();
-            tile[9].image= ImageIO.read(getClass().getResource("/Tiles/grass4.png"));
-            tile[10]= new Tile();
-            tile[10].image= ImageIO.read(getClass().getResource("/Tiles/grass5.png"));
-            tile[11]= new Tile();
-            tile[11].image= ImageIO.read(getClass().getResource("/Tiles/flower1.png"));
-            tile[12]= new Tile();
-            tile[12].image= ImageIO.read(getClass().getResource("/Tiles/flower2.png"));
-
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-
-
+        setup(0, "grass1", false);
+        setup(1, "wall", true);
+        setup(2, "water", true);
+        setup(3, "earth", false);
+        setup(4, "tree", true);
+        setup(5, "sand", false);
+        setup(6, "grass2", false);
+        setup(7, "cut_tree", true);
+        setup(8, "grass3", false);
+        setup(9, "grass4", false);
+        setup(10, "grass5", false);
+        setup(11, "flower1", false);
+        setup(12, "flower2", false);
 
     }
     public void setup(int index,String imageName,boolean collision){
