@@ -16,7 +16,7 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     int hasKey=0;
-
+    BufferedImage idle_left,idle_right,idle_up,idle_down;
     public Player(GamePanel gp,KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
@@ -34,12 +34,17 @@ public class Player extends Entity {
         worldX=gp.tileSize*23-gp.tileSize/2;
         worldY=gp.tileSize*21-gp.tileSize/2;
         speed=5;
-        direction="up";
+        direction="idle_down";
     }
 
     public void getPlayerImage(){
+
         try{
 
+            idle_left=ImageIO.read(getClass().getResourceAsStream("/player/boy_idle_left.png"));
+            idle_right=ImageIO.read(getClass().getResourceAsStream("/player/boy_idle_right.png"));
+            idle_down=ImageIO.read(getClass().getResourceAsStream("/player/boy_idle_down.png"));
+            idle_up=ImageIO.read(getClass().getResourceAsStream("/player/boy_idle_up.png"));
             up1= ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
             up2= ImageIO.read(getClass().getResourceAsStream("/player/boy_up_2.png"));
             down1= ImageIO.read(getClass().getResourceAsStream("/player/boy_down_1.png"));
@@ -96,6 +101,22 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
+        else{
+            if(direction.contains("left")){
+              direction="idle_down";  direction="idle_left";
+            } else if (direction.contains("right")) {
+                direction="idle_right";
+
+            } else if (direction.contains("up")) {
+                direction="idle_up";
+
+            } else if (direction.contains("down")) {
+                direction="idle_down";
+            }
+            else {
+                direction="idle_down";
+            }
+        }
     }
     public void pickUpObject(int index){
         if(index!=999){
@@ -124,6 +145,19 @@ public class Player extends Entity {
         BufferedImage image=null;
 
         switch(direction){
+            case "idle_right":
+                image=idle_right;
+                break;
+            case "idle_up":
+                image=idle_up;
+                break;
+            case "idle_left":
+                image=idle_left;
+                break;
+
+            case "idle_down":
+                image=idle_down;
+                break;
             case "up":
                 image=(spriteNum==1)?up1:up2;
                 break;
