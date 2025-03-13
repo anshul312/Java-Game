@@ -25,7 +25,7 @@ public class TileManager {
     public void getTileImage(){
         try{
             tile[0]= new Tile();
-            tile[0].image= ImageIO.read(getClass().getResource("/Tiles/grass.png"));
+            tile[0].image= ImageIO.read(getClass().getResource("/Tiles/grass1.png"));
 
             tile[1]= new Tile();
             tile[1].image= ImageIO.read(getClass().getResource("/Tiles/wall.png"));
@@ -45,6 +45,8 @@ public class TileManager {
             tile[5]= new Tile();
             tile[5].image= ImageIO.read(getClass().getResource("/Tiles/sand.png"));
 
+            tile[6]= new Tile();
+            tile[6].image= ImageIO.read(getClass().getResource("/Tiles/grass2.png"));
 
         }catch(IOException e){
             e.printStackTrace();
