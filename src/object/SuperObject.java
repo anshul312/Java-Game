@@ -16,6 +16,7 @@ public class SuperObject {
     public int collisionAreaDefaultX=0;
     public int collisionAreaDefaultY=0;
     Utility uTool=new Utility();
+    int tileSize=GamePanel.tileSize;
 
 
     public void draw(Graphics2D g2, GamePanel gp) {

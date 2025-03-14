@@ -15,6 +15,7 @@ public class Sound {
         soundURL[0]=getClass().getResource("/sound/bg.wav");
         soundURL[1]=getClass().getResource("/sound/key.wav");// when key is acquired
         soundURL[2]=getClass().getResource("/sound/unlock.wav");
+        soundURL[3]=getClass().getResource("/sound/fanfare.wav");
     }
     public void setFile(int i){
         try{

@@ -30,7 +30,7 @@ public class Collision {
                 tileNum1=gp.tileManager.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2=gp.tileManager.mapTileNum[entityRightCol][entityTopRow];
 
-                if(gp.tileManager.tile[tileNum1].collision==true || gp.tileManager.tile[tileNum2].collision==true){
+                if(gp.tileManager.tile[tileNum1].collision || gp.tileManager.tile[tileNum2].collision){
                     entity.collisionOn=true;
                 }
                 break;
@@ -39,7 +39,7 @@ public class Collision {
                 tileNum1=gp.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
                 tileNum2=gp.tileManager.mapTileNum[entityRightCol][entityBottomRow];
 
-                if(gp.tileManager.tile[tileNum1].collision==true || gp.tileManager.tile[tileNum2].collision==true){
+                if(gp.tileManager.tile[tileNum1].collision || gp.tileManager.tile[tileNum2].collision){
                     entity.collisionOn=true;
                 }
                 break;
@@ -48,7 +48,7 @@ public class Collision {
                 tileNum1=gp.tileManager.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2=gp.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
 
-                if(gp.tileManager.tile[tileNum1].collision==true || gp.tileManager.tile[tileNum2].collision==true){
+                if(gp.tileManager.tile[tileNum1].collision || gp.tileManager.tile[tileNum2].collision){
                     entity.collisionOn=true;
                 }
                 break;
@@ -57,7 +57,7 @@ public class Collision {
                 tileNum1=gp.tileManager.mapTileNum[entityRightCol][entityTopRow];
                 tileNum2=gp.tileManager.mapTileNum[entityRightCol][entityBottomRow];
 
-                if(gp.tileManager.tile[tileNum1].collision==true || gp.tileManager.tile[tileNum2].collision==true){
+                if(gp.tileManager.tile[tileNum1].collision || gp.tileManager.tile[tileNum2].collision){
                     entity.collisionOn=true;
                 }
                 break;
@@ -84,7 +84,7 @@ public class Collision {
                             if(gp.obj[i].collision){
                                 entity.collisionOn=true;
                             }
-                            if(player==true){
+                            if(player){
                                 index=i;
                             }
                         }
@@ -95,7 +95,7 @@ public class Collision {
                             if(gp.obj[i].collision){
                                 entity.collisionOn=true;
                             }
-                            if(player==true){
+                            if(player){
                                 index=i;
                             }
                         }
@@ -106,7 +106,7 @@ public class Collision {
                             if(gp.obj[i].collision){
                                 entity.collisionOn=true;
                             }
-                            if(player==true){
+                            if(player){
                                 index=i;
                             }
                         }
@@ -117,7 +117,7 @@ public class Collision {
                             if(gp.obj[i].collision){
                                 entity.collisionOn=true;
                             }
-                            if(player==true){
+                            if(player){
                                 index=i;
                             }
                         }
@@ -130,5 +130,102 @@ public class Collision {
             }
         }
         return index;
+    }
+
+    public int checkEntity(Entity entity,Entity[] target) {
+
+        int index = 999;
+
+        for (int i = 0; i < target.length; i++) {
+            if (target[i] != null) {
+                // get entity's collision area position
+                entity.collisionArea.x = entity.worldX + entity.collisionArea.x;
+                entity.collisionArea.y = entity.worldY + entity.collisionArea.y;
+
+                //get the objects collision area position
+                target[i].collisionArea.x =target[i].worldX + target[i].collisionArea.x;
+                target[i].collisionArea.y = target[i].worldY + target[i].collisionArea.y;
+
+                switch(entity.direction){
+                    case "up":
+                        entity.collisionArea.y-=entity.speed;
+                        if(entity.collisionArea.intersects(target[i].collisionArea)){
+                            entity.collisionOn=true;
+                            index=i;
+                        }
+                        break;
+                    case "down":
+                        entity.collisionArea.y+=entity.speed;
+                        if(entity.collisionArea.intersects(target[i].collisionArea)){
+
+                            entity.collisionOn=true;
+                            index=i;
+                        }
+                        break;
+                    case "left":
+                        entity.collisionArea.x-=entity.speed;
+                        if(entity.collisionArea.intersects(target[i].collisionArea)){
+                            entity.collisionOn=true;
+                            index=i;
+                        }
+                        break;
+                    case "right":
+                        entity.collisionArea.x+=entity.speed;
+                        if(entity.collisionArea.intersects(target[i].collisionArea)){
+                            entity.collisionOn=true;
+                            index=i;
+                        }
+                        break;
+                }
+                entity.collisionArea.x= entity.collisionAreaDefaultX;
+                entity.collisionArea.y= entity.collisionAreaDefaultY;
+                target[i].collisionArea.x=target[i].collisionAreaDefaultX;
+                target[i].collisionArea.y = target[i].collisionAreaDefaultY;
+            }
+        }
+        return index;
+    }
+
+    public void checkPlayer(Entity entity){
+
+
+            // get entity's collision area position
+            entity.collisionArea.x = entity.worldX + entity.collisionArea.x;
+            entity.collisionArea.y = entity.worldY + entity.collisionArea.y;
+
+            //get the objects collision area position
+            gp.player.collisionArea.x =gp.player.worldX + gp.player.collisionArea.x;
+            gp.player.collisionArea.y = gp.player.worldY + gp.player.collisionArea.y;
+
+            switch(entity.direction){
+                case "up":
+                    entity.collisionArea.y-=entity.speed;
+                    if(entity.collisionArea.intersects(gp.player.collisionArea)){
+                        entity.collisionOn=true;
+                    }
+                    break;
+                case "down":
+                    entity.collisionArea.y+=entity.speed;
+                    if(entity.collisionArea.intersects(gp.player.collisionArea)){
+                        entity.collisionOn=true;
+                    }
+                    break;
+                case "left":
+                    entity.collisionArea.x-=entity.speed;
+                    if(entity.collisionArea.intersects(gp.player.collisionArea)){
+                        entity.collisionOn=true;
+                    }
+                    break;
+                case "right":
+                    entity.collisionArea.x+=entity.speed;
+                    if(entity.collisionArea.intersects(gp.player.collisionArea)){
+                        entity.collisionOn=true;
+                    }
+                    break;
+            }
+            entity.collisionArea.x= entity.collisionAreaDefaultX;
+            entity.collisionArea.y= entity.collisionAreaDefaultY;
+            gp.player.collisionArea.x=gp.player.collisionAreaDefaultX;
+            gp.player.collisionArea.y = gp.player.collisionAreaDefaultY;
     }
 }

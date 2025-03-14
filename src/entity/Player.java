@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class Player extends Entity {
 
-    GamePanel gp;
     KeyHandler keyHandler;
 
     public final int screenX;
@@ -20,7 +19,8 @@ public class Player extends Entity {
     int doorIndex=0;
     BufferedImage idle_left,idle_right,idle_up,idle_down;
     public Player(GamePanel gp,KeyHandler keyHandler) {
-        this.gp = gp;
+        super(gp);
+        //this.gp = gp;
         this.keyHandler = keyHandler;
 
         screenX=gp.screenWidth/2;
@@ -41,31 +41,18 @@ public class Player extends Entity {
 
     public void getPlayerImage(){
 
-        idle_up=setup("boy_idle_up");
-        idle_down=setup("boy_idle_down");
-        idle_right=setup("boy_idle_right");
-        idle_left=setup("boy_idle_left");
-        left1=setup("boy_left_1");
-        right1=setup("boy_right_1");
-        left2=setup("boy_left_2");
-        right2=setup("boy_right_2");
-        up1=setup("boy_up_1");
-        up2=setup("boy_up_2");
-        down1=setup("boy_down_1");
-        down2=setup("boy_down_2");
-    }
-
-    public BufferedImage setup(String imageName){
-        Utility uTool=new Utility();
-        BufferedImage image=null;
-        try{
-            image=ImageIO.read(getClass().getResourceAsStream("/player/"+imageName+".png"));
-            image=uTool.scaleImage(image,gp.tileSize,gp.tileSize);
-
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-        return image;
+        idle_up=setup("/player/boy_idle_up");
+        idle_down=setup("/player/boy_idle_down");
+        idle_right=setup("/player/boy_idle_right");
+        idle_left=setup("/player/boy_idle_left");
+        left1=setup("/player/boy_left_1");
+        right1=setup("/player/boy_right_1");
+        left2=setup("/player/boy_left_2");
+        right2=setup("/player/boy_right_2");
+        up1=setup("/player/boy_up_1");
+        up2=setup("/player/boy_up_2");
+        down1=setup("/player/boy_down_1");
+        down2=setup("/player/boy_down_2");
     }
 
     public void update(){
@@ -95,8 +82,12 @@ public class Player extends Entity {
             int objIndex=gp.checker.checkObject(this,true);
             pickUpObject(objIndex);
 
+            //check NPC collision
+            int npcIndex=gp.checker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
+
             //if no collision then player can move
-            if(collisionOn==false){
+            if(!collisionOn){
                 switch(direction){
                     case "up": worldY-=speed; break;
                     case "down": worldY+=speed; break;
@@ -112,7 +103,7 @@ public class Player extends Entity {
         }
         else{
             if(direction.contains("left")){
-              direction="idle_down";  direction="idle_left";
+                direction="idle_left";
             } else if (direction.contains("right")) {
                 direction="idle_right";
 
@@ -128,7 +119,6 @@ public class Player extends Entity {
         }
     }
     public void pickUpObject(int index){
-
 
         if(index!=999){
             String objectName=gp.obj[index].name;
@@ -174,6 +164,14 @@ public class Player extends Entity {
             }
         }
     }
+
+    public void interactNPC(int index){
+
+        if(index!=999){
+            System.out.println("lol");
+        }
+    }
+
     public void draw(Graphics2D g2){
 
         BufferedImage image=null;
