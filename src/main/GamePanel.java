@@ -27,24 +27,27 @@ public class GamePanel extends JPanel implements Runnable {
 
     int FPS = 60;
     TileManager tileManager=new TileManager(this);
-    KeyHandler keyHandler = new KeyHandler(GamePanel.this);
+    public KeyHandler keyHandler = new KeyHandler(GamePanel.this);
 
     Sound music = new Sound();
     Sound se=new Sound();
     Thread gameThread;
 
     public Collision checker=new Collision(this);
+    public EventHandler eHandler=new EventHandler(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     public Player player=new Player(this,keyHandler);
-
+//
     public SuperObject obj[] = new SuperObject[10];
     public Entity npc[]=new Entity[10];
 
     //Game State
     public int gameState;
+    public final int titleState=0;
     public final int playState=1;
     public final int pauseState=2;
+    public final int dialogueState=3;
 
 
     public GamePanel(){
@@ -59,8 +62,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         aSetter.setObject();
         aSetter.setNPC();
-        playMusic(0);
-        gameState=playState;
+        playMusic(4);
+        gameState=titleState;
     }
 
     public void startGameThread(){
@@ -118,6 +121,11 @@ public class GamePanel extends JPanel implements Runnable {
         //debug
         long drawStart=0;
         drawStart=System.nanoTime();
+        //title state
+        if(gameState==titleState){
+            ui.draw(g2);
+        }
+        else {
 
         tileManager.draw(g2);
 
@@ -144,6 +152,7 @@ public class GamePanel extends JPanel implements Runnable {
         long drawEnd=System.nanoTime();
         long deltaTime=drawEnd-drawStart;
         g2.setColor(Color.BLACK);
+        }
 //        g2.drawString("Draw time"+deltaTime,10,400);
 //        System.out.println("Draw time"+deltaTime);
 

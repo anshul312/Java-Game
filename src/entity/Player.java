@@ -17,7 +17,7 @@ public class Player extends Entity {
     public final int screenY;
     public int hasKey=0;
     int doorIndex=0;
-    BufferedImage idle_left,idle_right,idle_up,idle_down;
+    public BufferedImage idle_left,idle_right,idle_up,idle_down;
     public Player(GamePanel gp,KeyHandler keyHandler) {
         super(gp);
         //this.gp = gp;
@@ -37,6 +37,8 @@ public class Player extends Entity {
         worldY=gp.tileSize*21-gp.tileSize/2;
         speed=4;
         direction="idle_down";
+        maxLife=6;
+        life=maxLife;
     }
 
     public void getPlayerImage(){
@@ -85,7 +87,8 @@ public class Player extends Entity {
             //check NPC collision
             int npcIndex=gp.checker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
-
+            // check event
+            gp.eHandler.checkEvent();
             //if no collision then player can move
             if(!collisionOn){
                 switch(direction){
@@ -168,8 +171,13 @@ public class Player extends Entity {
     public void interactNPC(int index){
 
         if(index!=999){
-            System.out.println("lol");
+            if(gp.keyHandler.enter == true){
+                gp.gameState=gp.dialogueState;
+                gp.npc[index].speak();
+            }
+
         }
+        gp.keyHandler.enter =false;
     }
 
     public void draw(Graphics2D g2){
