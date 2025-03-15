@@ -13,11 +13,12 @@ public class Entity {
     GamePanel gp;
     public int worldX,worldY;
     public int speed;
-
+    public int maxLife;
+    public int life;
     public BufferedImage up1,up2,down1,down2,left1,right1,left2,right2;
 
     public String direction;
-
+    public  String dialogues[] = new  String[20];
     public int spriteCounter=0;
     public int spriteNum=1;
     public Rectangle collisionArea=new Rectangle(0,0,48,48);
@@ -25,13 +26,33 @@ public class Entity {
     public int collisionAreaDefaultX,collisionAreaDefaultY;
     public boolean collisionOn=false;
     public int actionCounter=0;
+    public int dialogueIndex=0;
 
     public Entity(GamePanel gp) {
         this.gp=gp;
     }
 
     public void setAction(){}
-
+    public void speak(){
+        switch(gp.player.direction){
+            case  "down":
+                direction="up";
+                break;
+            case "right":
+                direction="left";
+                break;
+            case "left":
+                direction="right";
+                break;
+            case "up":
+                direction="down";
+                break;
+        }
+        if(dialogues[dialogueIndex] == null){
+            dialogueIndex=0;
+        }
+        gp.ui.currentDialogue=dialogues[dialogueIndex++];
+    }
     public void update(){
 
         setAction();
