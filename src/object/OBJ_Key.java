@@ -5,16 +5,13 @@ import main.GamePanel;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import  entity.Entity;
+public class OBJ_Key extends Entity {
 
-public class OBJ_Key extends SuperObject {
-
-    public OBJ_Key() {
+    public OBJ_Key(GamePanel gp) {
+        super(gp);
         name = "Key";
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/object/key.png"));
-            uTool.scaleImage(image,tileSize, tileSize);
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
+        down1=setup("/object/key");
+
     }
 }
