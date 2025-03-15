@@ -1,5 +1,6 @@
 package main;
 
+import entity.Entity;
 import object.OBJ_Heart;
 import object.OBJ_Key;
 
@@ -37,9 +38,9 @@ public class UI {
             throw new RuntimeException(e);
         }
 
-        OBJ_Key key=new OBJ_Key();
-        keyImage=key.image;
-        OBJ_Heart heart=new OBJ_Heart();
+        Entity key=new OBJ_Key(gp);
+        keyImage=key.down1;
+        OBJ_Heart heart=new OBJ_Heart(gp);
         heart_half=heart.image2;
         heart_full=heart.image;
         heart_blank=heart.image3;

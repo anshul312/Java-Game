@@ -87,8 +87,14 @@ public class Player extends Entity {
             //check NPC collision
             int npcIndex=gp.checker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
+
+            //check monster
+            int monsterIndex=gp.checker.checkEntity(this, gp.monster);
+            contactMonster(monsterIndex);
             // check event
             gp.eHandler.checkEvent();
+
+            gp.keyHandler.enter =false;
             //if no collision then player can move
             if(!collisionOn){
                 switch(direction){
@@ -119,6 +125,23 @@ public class Player extends Entity {
             else {
                 direction="idle_down";
             }
+        }
+
+        if(invincible == true){
+            invincibleCounter++;
+            if(invincibleCounter > 60){
+                invincible=false;
+                invincibleCounter=0;
+            }
+        }
+    }
+    public void contactMonster(int i){
+        if(i!=999){
+            if(invincible == false){
+                life-=1;
+                invincible=true;
+            }
+
         }
     }
     public void pickUpObject(int index){
@@ -177,7 +200,7 @@ public class Player extends Entity {
             }
 
         }
-        gp.keyHandler.enter =false;
+
     }
 
     public void draw(Graphics2D g2){
@@ -211,7 +234,11 @@ public class Player extends Entity {
                 image=(spriteNum==1)?right1:right2;
                 break;
         }
+        if(invincible){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
         g2.drawImage(image,screenX,screenY,null);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
     }
 }

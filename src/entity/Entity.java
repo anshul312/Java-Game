@@ -17,18 +17,23 @@ public class Entity {
     public int life;
     public BufferedImage up1,up2,down1,down2,left1,right1,left2,right2;
 
-    public String direction;
+    public String direction="down";
     public  String dialogues[] = new  String[20];
     public int spriteCounter=0;
     public int spriteNum=1;
     public Rectangle collisionArea=new Rectangle(0,0,48,48);
-
+    public boolean invincible = false;
+    public int invincibleCounter=0;
     public int collisionAreaDefaultX,collisionAreaDefaultY;
     public boolean collisionOn=false;
     public int actionCounter=0;
     public int dialogueIndex=0;
-
+    public BufferedImage image,image2,image3;
+    public String name;
+    public boolean collision = false;
+    public int type;//0 = player ,, 1 = npc , 2 = monster
     public Entity(GamePanel gp) {
+
         this.gp=gp;
     }
 
@@ -60,8 +65,16 @@ public class Entity {
         collisionOn=false;
         gp.checker.checkTile(this);
         gp.checker.checkObject(this,false);
-        gp.checker.checkPlayer(this);
+        gp.checker.checkEntity(this , gp.npc);
+        gp.checker.checkEntity(this , gp.monster);
+        boolean contactPlayer=gp.checker.checkPlayer(this);
 
+        if(this.type == 2 && contactPlayer){
+            if(!gp.player.invincible){
+                gp.player.life--;
+                gp.player.invincible=true;
+            }
+        }
         if(!collisionOn){
             switch(direction){
                 case "up": worldY-=speed; break;

@@ -37,6 +37,7 @@ public class TileManager {
         setup(10, "grass5", false);
         setup(11, "flower1", false);
         setup(12, "flower2", false);
+        setup(13, "pit", false);
 
     }
     public void setup(int index,String imageName,boolean collision){
