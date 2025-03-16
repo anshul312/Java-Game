@@ -78,6 +78,7 @@ public class UI {
             x=gp.screenWidth/2-textLength/2;
             y=gp.screenWidth/2+gp.tileSize*2;
             g2.drawString(text,x,y);
+            gp.stopMusic();
             gp.playSE(3);
 
             gp.gameThread=null;
