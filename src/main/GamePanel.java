@@ -51,8 +51,9 @@ public class GamePanel extends JPanel implements Runnable {
     public final int playState=1;
     public final int pauseState=2;
     public final int dialogueState=3;
+    public final int gameOverState=4;
 
-
+//
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.BLACK);
@@ -62,13 +63,13 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame() {
-
         aSetter.setObject();
         aSetter.setNPC();
         aSetter.setMonster();
         playMusic(4);
         gameState=titleState;
     }
+
 
     public void startGameThread(){
         gameThread=new Thread(this);// this is passed here because GamePanel implements runnable , so thread calls run()

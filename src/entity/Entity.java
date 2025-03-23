@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Entity {
-////
+
 public GamePanel gp;
     public int worldX,worldY;
     public int speed;
@@ -150,6 +150,4 @@ public GamePanel gp;
         }
         return image;
     }
-//
 }
-//

@@ -121,9 +121,35 @@ public class UI {
             else if(gp.gameState == gp.dialogueState){
                 drawDialogueScreen();
             }
+            else if(gp.gameState == gp.gameOverState){
+                drawGameOverScreen();
+            }
         }
     }
+    public void drawGameOverScreen(){
+        g2.setColor(new Color(0,0,0,150));
+        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+        int x,y;
+        String text="Game Over!";
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,110f));
 
+        x=getXforCenteredText(text);
+        y=gp.tileSize*4;
+        g2.drawString(text,x,y);
+        g2.setColor(Color.WHITE);
+        g2.drawString(text,x-4,y-4);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,50f));
+
+        text="Quit";
+        x=getXforCenteredText(text);
+        y+=gp.tileSize*3;
+        g2.drawString(text,x,y);
+        if(commandNumber == 0){
+            g2.drawString(">",x-40,y);//
+        }
+
+    }
     public void drawPlayerLife(){
         int x=gp.tileSize/2;
         int y=72;

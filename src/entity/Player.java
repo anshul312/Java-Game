@@ -15,10 +15,8 @@ public class Player extends Entity {
     public final int screenY;
     public int hasKey=0;
     int doorIndex=0;
-    //public BufferedImage idle_left,idle_right,idle_up,idle_down;
     public Player(GamePanel gp,KeyHandler keyHandler) {
         super(gp);
-        //this.gp = gp;
         this.keyHandler = keyHandler;
 
         screenX=gp.screenWidth/2;
@@ -134,6 +132,9 @@ public class Player extends Entity {
                 invincible=false;
                 invincibleCounter=0;
             }
+        }
+        if(life<=0){
+            gp.gameState= gp.gameOverState;
         }
     }
 
