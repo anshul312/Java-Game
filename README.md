@@ -56,6 +56,8 @@ P – Pause the game.
 
 📸 Screenshots
 ![image](https://github.com/user-attachments/assets/216328ce-5151-47ef-9171-95da4fbe7247)
+
+
 ![image](https://github.com/user-attachments/assets/27c80ebe-1a48-4f5b-826f-6c8b0b888033)
 
 
