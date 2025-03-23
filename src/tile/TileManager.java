@@ -85,7 +85,7 @@ public class TileManager {
     public void draw(Graphics2D g2){
         int worldCol=0;
         int worldRow=0;
-        int x=0;
+int x=0;
         int y=0;
 
         while(worldCol<gp.worldCol && worldRow<gp.worldRow){

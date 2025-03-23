@@ -38,18 +38,22 @@ public class Entity {
     }
 
     public void setAction(){}
+
     public void speak(){
         switch(gp.player.direction){
             case  "down":
                 direction="up";
                 break;
             case "right":
+
                 direction="left";
                 break;
             case "left":
+
                 direction="right";
                 break;
             case "up":
+
                 direction="down";
                 break;
         }

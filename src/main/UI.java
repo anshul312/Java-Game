@@ -22,6 +22,7 @@ public class UI {
     public String currentDialogue="";
     double playTime;
     public int commandNumber=0;
+
     public UI(GamePanel gp) {
         this.gp = gp;
 
@@ -78,6 +79,7 @@ public class UI {
             x=gp.screenWidth/2-textLength/2;
             y=gp.screenWidth/2+gp.tileSize*2;
             g2.drawString(text,x,y);
+
             gp.stopMusic();
             gp.playSE(3);
 
@@ -119,9 +121,9 @@ public class UI {
             else if(gp.gameState == gp.dialogueState){
                 drawDialogueScreen();
             }
-
         }
     }
+
     public void drawPlayerLife(){
         int x=gp.tileSize/2;
         int y=72;
@@ -178,7 +180,7 @@ public class UI {
 
         x=gp.screenWidth/2-gp.tileSize;
         y+=gp.tileSize*2;
-        g2.drawImage(gp.player.idle_down,x,y,gp.tileSize*2,gp.tileSize*2,null);
+        g2.drawImage(gp.player.down1,x,y,gp.tileSize*2,gp.tileSize*2,null);
 
         // menu
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,48f));
@@ -205,27 +207,23 @@ public class UI {
             g2.drawImage(gp.player.setup("/player/menu_sword"),x - gp.tileSize,y- gp.tileSize,null);
         }
         g2.drawString(text, x, y);
-
-
-
     }
 
-
     public void drawDialogueScreen(){
+
         //Window
         int x =gp.tileSize *2 , y = gp.tileSize/2, width = gp.screenWidth-(gp.tileSize *4), height= gp.tileSize * 4;
         drawSubWindow(x,y,width,height);
-        x+=gp.tileSize;
-        y+=gp.tileSize;
+        x += gp.tileSize;
+        y += gp.tileSize;
         g2.setFont(purisaB);
         g2.setFont(g2.getFont().deriveFont(20f));
         for(String line:currentDialogue.split("\n")){
             g2.drawString(line,x,y);
             y+=40;
         }
-
-
     }
+
     public void drawSubWindow(int x, int y, int width, int height){
         Color c=new Color(0,0,0 , 185);
         

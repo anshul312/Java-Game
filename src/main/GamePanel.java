@@ -120,7 +120,6 @@ public class GamePanel extends JPanel implements Runnable {
         if(gameState==pauseState){
             //nothing
         }
-
     }
 
     public void paintComponent(Graphics g){
@@ -166,14 +165,14 @@ public class GamePanel extends JPanel implements Runnable {
             }
         });
         //draw entities
-            for (int i=0; i< entityList.size();i++){
-                entityList.get(i).draw(g2);
-            }
+        for (int i=0; i< entityList.size();i++){
+            entityList.get(i).draw(g2);
+        }
+
+        //empty entity list
+        entityList.clear();
+
         //UI
-            //empty entity list
-            for (int i=0; i< entityList.size();i++){
-                entityList.remove(i);
-            }
         ui.draw(g2);
 
         long drawEnd=System.nanoTime();

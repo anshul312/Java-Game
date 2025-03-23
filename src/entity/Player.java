@@ -2,12 +2,10 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
-import main.Utility;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+
 
 public class Player extends Entity {
 
@@ -17,7 +15,7 @@ public class Player extends Entity {
     public final int screenY;
     public int hasKey=0;
     int doorIndex=0;
-    public BufferedImage idle_left,idle_right,idle_up,idle_down;
+    //public BufferedImage idle_left,idle_right,idle_up,idle_down;
     public Player(GamePanel gp,KeyHandler keyHandler) {
         super(gp);
         //this.gp = gp;
@@ -36,17 +34,13 @@ public class Player extends Entity {
         worldX=gp.tileSize*23-gp.tileSize/2;
         worldY=gp.tileSize*21-gp.tileSize/2;
         speed=4;
-        direction="idle_down";
+        direction="down";
         maxLife=6;
         life=maxLife;
     }
 
     public void getPlayerImage(){
 
-        idle_up=setup("/player/boy_idle_up");
-        idle_down=setup("/player/boy_idle_down");
-        idle_right=setup("/player/boy_idle_right");
-        idle_left=setup("/player/boy_idle_left");
         left1=setup("/player/boy_left_1");
         right1=setup("/player/boy_right_1");
         left2=setup("/player/boy_left_2");
@@ -58,8 +52,6 @@ public class Player extends Entity {
     }
 
     public void update(){
-
-        int dx=0,dy=0;
 
         if(keyHandler.up ||keyHandler.down ||keyHandler.left ||keyHandler.right  ){
 
@@ -86,17 +78,26 @@ public class Player extends Entity {
 
             //check NPC collision
             int npcIndex=gp.checker.checkEntity(this, gp.npc);
+            if (npcIndex != 999) {
+                collisionOn = true;  // Prevent movement
+            }
             interactNPC(npcIndex);
+            //System.out.println(npcIndex);
 
             //check monster
             int monsterIndex=gp.checker.checkEntity(this, gp.monster);
+            if (monsterIndex != 999) {
+                collisionOn = true;  // Prevent movement
+            }
             contactMonster(monsterIndex);
             // check event
             gp.eHandler.checkEvent();
 
-            gp.keyHandler.enter =false;
+            gp.keyHandler.enter=false;
+
             //if no collision then player can move
-            if(!collisionOn){
+            if(collisionOn==false ){
+
                 switch(direction){
                     case "up": worldY-=speed; break;
                     case "down": worldY+=speed; break;
@@ -104,26 +105,11 @@ public class Player extends Entity {
                     case "right": worldX+=speed; break;
                 }
             }
+
             spriteCounter++;
             if(spriteCounter>10) {
                 spriteNum *= -1;
                 spriteCounter = 0;
-            }
-        }
-        else{
-            if(direction.contains("left")){
-                direction="idle_left";
-            } else if (direction.contains("right")) {
-                direction="idle_right";
-
-            } else if (direction.contains("up")) {
-                direction="idle_up";
-
-            } else if (direction.contains("down")) {
-                direction="idle_down";
-            }
-            else {
-                direction="idle_down";
             }
         }
 
@@ -135,15 +121,16 @@ public class Player extends Entity {
             }
         }
     }
+
     public void contactMonster(int i){
         if(i!=999){
             if(invincible == false){
                 life-=1;
                 invincible=true;
             }
-
         }
     }
+
     public void pickUpObject(int index){
 
         if(index!=999){
@@ -194,13 +181,11 @@ public class Player extends Entity {
     public void interactNPC(int index){
 
         if(index!=999){
-            if(gp.keyHandler.enter == true){
+            if(gp.keyHandler.enter){
                 gp.gameState=gp.dialogueState;
                 gp.npc[index].speak();
             }
-
         }
-
     }
 
     public void draw(Graphics2D g2){
@@ -208,19 +193,7 @@ public class Player extends Entity {
         BufferedImage image=null;
 
         switch(direction){
-            case "idle_right":
-                image=idle_right;
-                break;
-            case "idle_up":
-                image=idle_up;
-                break;
-            case "idle_left":
-                image=idle_left;
-                break;
 
-            case "idle_down":
-                image=idle_down;
-                break;
             case "up":
                 image=(spriteNum==1)?up1:up2;
                 break;

@@ -62,12 +62,11 @@ public class KeyHandler implements KeyListener {
                 gp.gameState= gp.playState ;
             }
         }
-
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-;
+
         int code = e.getKeyCode();
 
         if(code==KeyEvent.VK_W || code==KeyEvent.VK_UP)up=false;

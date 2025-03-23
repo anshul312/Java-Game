@@ -147,7 +147,6 @@ public class Collision {
                 }
                 if(entity.collisionArea.intersects(target[i].collisionArea)){
                     if(target[i] != entity){
-                        entity.collisionOn=true;
                         index=i;
                     }
 
