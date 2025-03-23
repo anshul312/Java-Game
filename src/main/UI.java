@@ -189,22 +189,22 @@ public class UI {
 
         y+=gp.tileSize*3.5;
         if(commandNumber ==0 ){
-            g2.drawImage(gp.player.setup("/player/menu_sword"),x - gp.tileSize ,y - gp.tileSize,null);
+            g2.drawImage(gp.player.setup("/player/menu_sword", gp.tileSize,gp.tileSize),x - gp.tileSize ,y - gp.tileSize,null);
         }
         g2.drawString(text, x, y);
 
-        text="Load Game";
-        x=getXforCenteredText(text);
-        y+=gp.tileSize;
-        if(commandNumber ==1 ){
-            g2.drawImage(gp.player.setup("/player/menu_sword"),x - gp.tileSize,y- gp.tileSize,null);
-        }
-        g2.drawString(text, x, y);
+//        text="Load Game";
+//        x=getXforCenteredText(text);
+//        y+=gp.tileSize;
+//        if(commandNumber ==1 ){
+//            g2.drawImage(gp.player.setup("/player/menu_sword", gp.tileSize,gp.tileSize),x - gp.tileSize,y- gp.tileSize,null);
+//        }
+//        g2.drawString(text, x, y);
         text="Quit";
         x=getXforCenteredText(text);
         y+=gp.tileSize;
-        if(commandNumber ==2 ){
-            g2.drawImage(gp.player.setup("/player/menu_sword"),x - gp.tileSize,y- gp.tileSize,null);
+        if(commandNumber ==1 ){
+            g2.drawImage(gp.player.setup("/player/menu_sword", gp.tileSize,gp.tileSize),x - gp.tileSize,y- gp.tileSize,null);
         }
         g2.drawString(text, x, y);
     }

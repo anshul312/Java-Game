@@ -29,16 +29,16 @@ public class KeyHandler implements KeyListener {
                     gp.stopMusic();
                     gp.playMusic(0);
                 }
-                else if(gp.ui.commandNumber == 2){
+                else if(gp.ui.commandNumber == 1){
                     System.exit(0);
                 }
             }
             if(gp.ui.commandNumber<0)gp.ui.commandNumber=0;
-            if(gp.ui.commandNumber>2)gp.ui.commandNumber=2;
+            if(gp.ui.commandNumber>1)gp.ui.commandNumber=1;
 
         }
         // play state
-        if(gp.gameState== gp.playState){
+        else if(gp.gameState== gp.playState){
             if(code==KeyEvent.VK_W || code==KeyEvent.VK_UP)up=true;
             if(code==KeyEvent.VK_S || code==KeyEvent.VK_DOWN)down=true;
             if(code==KeyEvent.VK_A || code==KeyEvent.VK_LEFT)left=true;
