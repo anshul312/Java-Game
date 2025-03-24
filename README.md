@@ -69,8 +69,9 @@ https://github.com/anshul312/Java-Game.git
 ---
 
 ## 🏆 Contributors  
-👨‍💻 **Anshul Chaudhary** – Game programming, mechanics  
+👨‍💻 **Anshul Chaudhary** – Game programming, mechanics 
+👨‍💻 **Nishant Singh** – Game programming, pixel art, music
 👨‍💻 **Arunesh Gadia** – Game programming, mechanics  
-🎨 **Nishant Singh** – Game programming, pixel art, music  
+  
 
 ---
