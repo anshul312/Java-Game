@@ -61,17 +61,17 @@ https://github.com/anshul312/Java-Game.git
 
 ## 📸 Screenshots & Gameplay  
 📸 Screenshots
-![image](https://github.com/user-attachments/assets/216328ce-5151-47ef-9171-95da4fbe7247)
+![Home Screen](https://raw.githubusercontent.com/anshul312/Java-Game/master/resources/ss/home.png)
 
 
-![image](https://github.com/user-attachments/assets/27c80ebe-1a48-4f5b-826f-6c8b0b888033) 
+![NPC Screenshot](https://raw.githubusercontent.com/anshul312/Java-Game/master/resources/ss/npc.png)
 
 ---
 
 ## 🏆 Contributors  
-👨‍💻 **Anshul Chaudhary** – Game programming, mechanics 
-👨‍💻 **Nishant Singh** – Game programming, pixel art, music
-👨‍💻 **Arunesh Gadia** – Game programming, mechanics  
+👨‍💻 **Anshul Choudhary** – Game programming, mechanics   
+👨‍💻 **Nishant Singh** – Game programming, pixel art, music  
+👨‍💻 **Arunesh Gadia** – Game programming, mechanics    
   
 
 ---
